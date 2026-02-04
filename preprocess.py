@@ -1,22 +1,29 @@
 import pandas as pd
 
-# Load dataset
 data = pd.read_csv("StudentsPerformance.csv")
 
-# Create target column 'pass'
-data['average_score'] = (data['math score'] + data['reading score'] + data['writing score']) / 3
+# Create target
+data['average_score'] = (
+    data['math score'] + data['reading score'] + data['writing score']
+) / 3
+
 data['pass'] = (data['average_score'] >= 50).astype(int)
 
-# Drop 'average_score' column (not needed as input)
-data = data.drop(columns=['average_score'])
+# Drop helper column
+data.drop(columns=['average_score'], inplace=True)
 
-# One-hot encode categorical features
-categorical_cols = ['gender', 'race/ethnicity', 'parental level of education', 'lunch', 'test preparation course']
+# One-hot encode categorical columns
+categorical_cols = [
+    'gender',
+    'race/ethnicity',
+    'parental level of education',
+    'lunch',
+    'test preparation course'
+]
+
 data = pd.get_dummies(data, columns=categorical_cols)
 
-# Separate features and target
-X = data.drop(columns=['pass'])
-y = data['pass']
+# 🔥 THIS WAS MISSING
+data.to_csv("student_data_preprocessed.csv", index=False)
 
-print("Features shape:", X.shape)
-print("Target distribution:\n", y.value_counts())
+print("Preprocessing complete. File saved as student_data_preprocessed.csv")
