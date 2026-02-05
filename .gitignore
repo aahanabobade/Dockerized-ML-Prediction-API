@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Virtual env
+venv/
+.venv/
+
+# Model artifacts
+model.pkl
+
+# OS
+.DS_Store
+Thumbs.db
